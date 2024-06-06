@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: ./app
+      dockerfile: Dockerfile
+    env_file:
+      - ./app/.env
+    ports:
+      - "6957:8080"
+    depends_on:
+      - db
+    networks:
+      - mynet
+
+  db:
+    image: mysql:8.0
+    environment:
+      MYSQL_DATABASE: 'restro_db'
+      MYSQL_USER: 'user'
+      MYSQL_PASSWORD: 'password'
+      MYSQL_ROOT_PASSWORD: 'password'
+    ports:
+      - "6598:3306"
+    networks:
+      - mynet
+
+networks:
+  mynet:
