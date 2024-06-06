@@ -4,9 +4,12 @@ services:
   app:
     build:
       context: ./app
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.dev
     env_file:
       - ./app/.env
+    volumes:
+      - ./app:/app
+      - /app/vendor
     ports:
       - "6957:8080"
     depends_on:

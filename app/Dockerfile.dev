@@ -1,0 +1,21 @@
+FROM golang:1.22 as builder
+
+WORKDIR /app
+
+COPY go.mod go.sum ./
+RUN go mod download
+
+# Install Air for live reloading
+RUN go install github.com/cosmtrek/air@v1.40.4
+
+COPY . .
+
+# Ensure Go uses modules correctly
+RUN go mod tidy && go mod vendor
+
+# Build the application
+RUN go build -mod=vendor -o main .
+
+EXPOSE 8080
+
+CMD ["/go/bin/air"]

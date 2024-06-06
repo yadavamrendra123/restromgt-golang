@@ -11,7 +11,7 @@ func SetupRouter() *gin.Engine {
 
 	router.GET("/", func(c *gin.Context) {
 		c.JSON(http.StatusOK, gin.H{
-			"message": "Connected to the database!",
+			"message": "Hello babe!",
 		})
 	})
 

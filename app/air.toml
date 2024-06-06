@@ -1,0 +1,26 @@
+# Config file for air (https://github.com/cosmtrek/air)
+
+[build]
+  cmd = "go build -mod=readonly -o main ."
+  bin = "./main"
+  full_bin = "./main"
+  exclude_dir = ["vendor"]
+  include_ext = ["go", "tpl", "tmpl", "html"]
+  exclude_ext = ["git", "swp"]
+  exclude_file = []
+  watch_delay = 500
+  debug = true
+  log = "air.log"
+
+[log]
+  color = true
+  time = false
+
+[notification]
+  enable = true
+  recipient = ""
+
+[live]
+  open_url = false
+  url = "http://localhost:8080"
+  interval = 2000
