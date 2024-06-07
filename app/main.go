@@ -8,7 +8,6 @@ import (
 
 func main() {
 	database.InitDB()
-	defer database.DB.Close()
 
 	// Set up the router
 	router := router.SetupRouter()
