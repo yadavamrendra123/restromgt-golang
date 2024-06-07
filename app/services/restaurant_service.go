@@ -39,7 +39,7 @@ func GetRestaurantByID(id uint) (*models.Restaurant, error) {
 	var restaurant models.Restaurant
 	result := database.DB.First(&restaurant, id)
 	if result.Error != nil {
-		if result.Error == gorm.ErrRecordNotFound {
+		if errors.Is(result.Error, gorm.ErrRecordNotFound) {
 			return nil, errors.New("restaurant not found")
 		}
 		return nil, result.Error
@@ -48,7 +48,22 @@ func GetRestaurantByID(id uint) (*models.Restaurant, error) {
 }
 
 func UpdateRestaurant(restaurant *models.Restaurant) error {
-	result := database.DB.Save(restaurant)
+	var existingRestaurant models.Restaurant
+
+	// Fetch the existing record
+	result := database.DB.First(&existingRestaurant, restaurant.ID)
+	if result.Error != nil {
+		return result.Error
+	}
+
+	// Update the fields that are allowed to change
+	existingRestaurant.Name = restaurant.Name
+	existingRestaurant.Address = restaurant.Address
+	existingRestaurant.PhoneNumber = restaurant.PhoneNumber
+	existingRestaurant.Website = restaurant.Website
+
+	// Save the updated record
+	result = database.DB.Save(&existingRestaurant)
 	if result.Error != nil {
 		return result.Error
 	}
