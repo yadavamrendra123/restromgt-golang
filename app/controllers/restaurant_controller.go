@@ -7,6 +7,6 @@ import (
 
 func GetRestaurants(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{
-		"students": "students list api",
+		"restaurants": "Restaurants list ooo lal la",
 	})
 }
