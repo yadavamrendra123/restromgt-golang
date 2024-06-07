@@ -10,10 +10,10 @@ func main() {
 	database.InitDB()
 
 	// Set up the router
-	router := router.SetupRouter()
+	route := router.SetupRouter()
 
 	// Run the server
-	err := router.Run(":8080")
+	err := route.Run(":8080")
 	if err != nil {
 		log.Fatalf("failed to run server: %v", err)
 	}

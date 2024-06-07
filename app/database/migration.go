@@ -3,7 +3,7 @@ package database
 import (
 	"gorm.io/gorm"
 	"log"
-	"restro-mgt/models" // Make sure to import the correct models package where your models are defined
+	"restro-mgt/models"
 )
 
 func RunMigrations(db *gorm.DB) {
@@ -15,7 +15,7 @@ func RunMigrations(db *gorm.DB) {
 
 	// Run migrations
 	err := db.AutoMigrate(
-		&models.Restaurant{}, // Replace with other models as necessary
+		&models.Restaurant{},
 	)
 	if err != nil {
 		log.Fatalf("failed to migrate database: %v", err)
