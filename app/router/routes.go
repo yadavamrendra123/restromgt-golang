@@ -6,7 +6,7 @@ import (
 	"restro-mgt/controllers"
 )
 
-func SetupRouter() *gin.Engine {
+func SetupRouter(secretController controllers.SecretController) *gin.Engine {
 	router := gin.Default()
 
 	router.GET("/", func(c *gin.Context) {
@@ -22,6 +22,14 @@ func SetupRouter() *gin.Engine {
 		v1.GET("/restaurants/:id", controllers.GetRestaurantByID)
 		v1.PUT("/restaurants/:id", controllers.UpdateRestaurant)
 		v1.DELETE("/restaurants/:id", controllers.DeleteRestaurant)
+		v1.POST("/events", controllers.CreateEvent)
+		v1.GET("/events", controllers.GetAllEvents)
+		v1.POST("/time-entries", controllers.CreateTimeEntry)
+		v1.GET("/time-entries", controllers.GetAllTimeEntries)
+		v1.POST("/secrets", secretController.CreateSecret) // Updated
+		v1.GET("/secrets", secretController.GetAllSecrets) // Updated
+		v1.POST("/custom-formats", controllers.CreateCustomFormat)
+		v1.GET("/custom-formats", controllers.GetAllCustomFormats)
 	}
 
 	return router

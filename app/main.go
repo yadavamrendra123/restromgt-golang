@@ -2,15 +2,19 @@ package main
 
 import (
 	"log"
+	"restro-mgt/controllers"
 	"restro-mgt/database"
 	"restro-mgt/router"
 )
 
 func main() {
-	database.InitDB()
+	db := database.InitDB()
 
-	// Set up the router
-	route := router.SetupRouter()
+	// Create an instance of SecretController
+	secretController := controllers.SecretController{DB: db}
+
+	// Set up the router with SecretController
+	route := router.SetupRouter(secretController)
 
 	// Run the server
 	err := route.Run(":8080")

@@ -1,17 +1,22 @@
 package database
 
 import (
+	"crypto/rand"
 	"fmt"
-	"gorm.io/driver/mysql"
-	"gorm.io/gorm"
 	"log"
 	"os"
 	"time"
+
+	"gorm.io/driver/mysql"
+	"gorm.io/gorm"
 )
 
-var DB *gorm.DB
+const AESKeySize = 32
 
-func InitDB() {
+var DB *gorm.DB
+var key []byte
+
+func InitDB() *gorm.DB {
 	user := os.Getenv("DB_USER")
 	password := os.Getenv("DB_PASSWORD")
 	name := os.Getenv("DB_NAME")
@@ -35,5 +40,17 @@ func InitDB() {
 		log.Fatalf("All attempts to connect to the database have failed: %v", err)
 	}
 
+	key = generateAESKey(AESKeySize)
+
 	RunMigrations(DB)
+
+	return DB
+}
+
+func generateAESKey(size int) []byte {
+	key := make([]byte, size)
+	if _, err := rand.Read(key); err != nil {
+		panic(err.Error())
+	}
+	return key
 }

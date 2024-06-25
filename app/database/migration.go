@@ -7,7 +7,7 @@ import (
 )
 
 func RunMigrations(db *gorm.DB) {
-	// Ensure the DB is not nil
+
 	if db == nil {
 		log.Fatalf("database connection is nil")
 		return
@@ -16,6 +16,10 @@ func RunMigrations(db *gorm.DB) {
 	// Run migrations
 	err := db.AutoMigrate(
 		&models.Restaurant{},
+		&models.Event{},
+		&models.TimeEntry{},
+		&models.Secret{},
+		&models.CustomFormatModel{},
 	)
 	if err != nil {
 		log.Fatalf("failed to migrate database: %v", err)
