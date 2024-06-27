@@ -45,7 +45,6 @@ func (cf CustomFormat) ToString() string {
 
 // FromString parses a string into CustomFormat.
 func (cf *CustomFormat) FromString(str string) error {
-	// Assuming the string is already in the correct format without "ALICE_$$$_" prefix.
 	cf.Value = str
 	return nil
 }

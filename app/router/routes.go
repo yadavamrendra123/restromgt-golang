@@ -9,9 +9,9 @@ import (
 func SetupRouter(secretController controllers.SecretController) *gin.Engine {
 	router := gin.Default()
 
-	router.GET("/", func(c *gin.Context) {
+	router.GET("/ping", func(c *gin.Context) {
 		c.JSON(http.StatusOK, gin.H{
-			"message": "Hello dear!",
+			"message": "Pong",
 		})
 	})
 
